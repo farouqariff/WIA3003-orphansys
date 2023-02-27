@@ -1,0 +1,89 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Adoption Management | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <div class="row">
+        <div class="col">
+            <h1>Adoption Management</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Adoption Management</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-sm m-auto d-flex justify-content-end">
+            <a href="{% url 'add_adoption' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add Adoption</a>
+        </div>
+    </div>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="card p-4">
+    <div class="card-body">
+        <table id="adoption_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                  <th>Orphan Name</th>
+                    <th>IDN</th>
+                    <th>Full Name</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                    <th>Job</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ad in ad_list %}
+                <tr>
+                    <td>{{ ad.orphan_fk }}</td>
+                    <td>{{ ad.idn }}</td>
+                    <td>{{ ad.first_name }} {{ ad.last_name }}</td>
+                    <td>{{ ad.dob }}</td>
+                    <td>{{ ad.get_gender_display }}</td>
+                    <td>{{ ad.job }}</td>
+                    <td>{{ ad.email }}</td>
+                    <td>{{ ad.phone }}</td>
+                    <td>{{ ad.add }}</td>
+                    <td>
+                        <a href="{% url 'update_adoption' ad.id %}">
+                            <i class="fa-regular fa-pen-to-square" style="color: black;"></i>
+                        </a>
+                        <a href="{% url 'delete_adoption' ad.id %}">
+                            <i class="fa-regular fa-trash-can" style="color: red;"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+    
+</script>
+{% endblock %}

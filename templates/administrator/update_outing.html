@@ -1,0 +1,116 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+
+{% block title %}
+<title>Update Outing | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <h1>Update Outing</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'outing_management' %}">Outing Management</a></li>
+            <li class="breadcrumb-item active">Update Outing</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% if out_form.errors %}
+<div class="alert alert-danger" role="alert">
+    <ul>
+        {% for field in out_form %}
+        {% for error in field.errors %}
+        <li>{{ error|escape }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 col-sm-2">
+        </div>
+        <div class="col-6 col-sm-7">
+            <div class="card p-4">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-outline mb-4 col-md-5">
+                                <label class="form-label" for="form3Example3">Orphan name</label>
+                                {{ out_form.orphan_fk|add_class:'form-control' | append_attr:"placeholder:Select orphan name"}}
+                            </div>
+                            <div class="form-outline mb-4 col-md-3">
+                                <label class="form-label" for="form3Example3">Date out</label>
+                                {{ out_form.date_out|add_class:'form-control' | append_attr:"placeholder:Enter outing date"}}
+                            </div>
+                            <div class="form-outline mb-4 col-md-4">
+                                <label class="form-label" for="form3Example3">Time out</label>
+                                {{ out_form.time_out|add_class:'form-control' | append_attr:"placeholder:Enter outing date"}}
+                            </div>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Reasons</label>
+                            {{ out_form.reason|add_class:'form-control' | append_attr:"placeholder:Enter reasons"}}
+                        </div>
+                        <div class="row">
+                            <div class="form-outline mb-4 col-md-6">
+                                <label class="form-label" for="form3Example3">Accompany first name</label>
+                                {{ out_form.accompany_first_name|add_class:'form-control' | append_attr:"placeholder:Enter first name"}}
+                            </div>
+                            <div class="form-outline mb-4 col-md-6">
+                                <label class="form-label" for="form3Example3">Accompany last name</label>
+                                {{ out_form.accompany_last_name|add_class:'form-control' | append_attr:"placeholder:Enter last name"}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-outline mb-4 col-md-6">
+                                <label class="form-label" for="form3Example3">Accompany IDN</label>
+                                {{ out_form.accompany_idn|add_class:'form-control' | append_attr:"placeholder:Enter idn"}}
+                            </div>
+                            <div class="form-outline mb-4 col-md-6">
+                                <label class="form-label" for="form3Example3">Accompany phone no.</label>
+                                {{ out_form.accompany_phone|add_class:'form-control' | append_attr:"placeholder:Enter phone no."}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-outline mb-4 col-md-4">
+                                <label class="form-label" for="form3Example3">Date In</label>
+                                {{ out_form.date_in|add_class:'form-control' | append_attr:"placeholder:Enter date arrive"}}
+                            </div>
+                            <div class="form-outline mb-4 col-md-4">
+                                <label class="form-label" for="form3Example3">Time In</label>
+                                {{ out_form.time_in|add_class:'form-control' | append_attr:"placeholder:Enter time in"}}
+                            </div>
+                            <div class="form-outline mb-4 col-md-4">
+                                <label class="form-label" for="form3Example3">Status</label>
+                                {{ out_form.status|add_class:'form-control' | append_attr:"placeholder:Enter status"}}
+                            </div>
+                        </div>
+                        <span class="float-right">
+                            <button type="submit" class="btn btn-primary" style="background-color: #4154f1;">Submit</button>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a href="{% url 'outing_management' %}" class="btn btn-primary" style="background-color: #4154f1; width: 40px; height: 40px; margin-top: 40px;">
+      <i class="fa-sharp fa-solid fa-arrow-left"></i>
+    </a>
+</div>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+</script>
+{% endblock %}

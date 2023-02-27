@@ -1,0 +1,107 @@
+{% extends "base/admin_base.html" %} {% load static crispy_forms_tags widget_tweaks %} 
+{% block title %}
+<title>Update Cash Donation | OrphanSys</title>
+{% endblock %} 
+{% block breadcrumbs %}
+<div class="pagetitle">
+  <h1>Update Cash Donation</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'cashdonation_management' %}">Cash Donation Management</a>
+      </li>
+      <li class="breadcrumb-item active">Update Cash Donation</li>
+    </ol>
+  </nav>
+</div>
+<!-- End Page Title -->
+{% endblock %} 
+{% block content %} 
+{% if cd_form.errors %}
+<div class="alert alert-danger" role="alert">
+  <ul>
+    {% for field in cd_form %} {% for error in field.errors %}
+    <li>{{ error|escape }}</li>
+    {% endfor %} 
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="container">
+  <div class="row">
+      <div class="col-6 col-sm-2">
+      </div>
+      <div class="col-6 col-sm-7">
+        <div class="card p-4">
+          <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">Donor</label>
+                <input type="text" class="form-control" readonly value="{{cd_user.donor}}">
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">Amount</label>
+                {{ cd_form.amt|add_class:'form-control' | append_attr:"placeholder:Enter amount"}}
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">Receipt</label>
+                {{ cd_form.receipt|add_class:'form-control' | append_attr:"placeholder:Upload receipt"}}
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">Status</label>
+                {{ cd_form.status|add_class:'form-control' | append_attr:"placeholder:Select status"}}
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">Date</label>
+                {{ cd_form.date|add_class:'form-control' | append_attr:"placeholder:Select date"}}
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">Invoice</label>
+                {{ cd_form.invoice|add_class:'form-control' | append_attr:"placeholder:Select invoice"}}
+              </div>
+              <br>
+              <span class="float-right">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="background-color: #4154f1; float: right;"
+                >
+                  Submit
+                </button>
+              </span>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<a href="{% url 'donation_invoice' cd_user.id  %}">
+  <button
+    type="button"
+    class="btn btn-primary"
+    style="background-color: #4154f1; float: left;">
+    Generate Invoice
+  </button>
+</a>
+<div>
+  <a
+    href="{% url 'cashdonation_management' %}"
+    class="btn btn-primary"
+    style="
+      background-color: #4154f1;
+      width: 40px;
+      height: 40px;
+      margin-top: 40px;
+    "
+  >
+    <i class="fa-sharp fa-solid fa-arrow-left"></i>
+  </a>
+</div>
+
+{% endblock %} 
+{% block child_script %}
+<script></script>
+{% endblock %}

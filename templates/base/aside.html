@@ -1,0 +1,184 @@
+{% load static crispy_forms_tags widget_tweaks %}
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        {% if request.user.role == 1 %}
+        <li class="nav-item">
+            {% if request.path == '/administrator/dashboard' %}
+            <a class="nav-link" href="{% url 'admin_dashboard' %}"> 
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'admin_dashboard' %}">
+                    {% endif %}
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <!-- <i class="bi bi-grid"></i> -->
+                    <span>Dashboard</span>
+                </a>
+        </li><!-- End Dashboard Page Nav -->
+
+        <li class="nav-item">
+            {% if request.path == '/administrator/donor_management' %}
+            <a class="nav-link" href="{% url 'donor_management' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'donor_management' %}">
+                    {% endif %}
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Donor Management</span>
+                </a>
+        </li><!-- End Donor Page Nav -->
+
+        <li class="nav-item">
+            {% if request.path == '/administrator/admin_management' %}
+            <a class="nav-link" href="{% url 'admin_management' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'admin_management' %}">
+                    {% endif %}
+                    <i class="fa-solid fa-user-gear"></i>
+                    <!-- <i class="bi bi-person"></i> -->
+                    <span>Admin Management</span>
+                </a>
+        </li><!-- End Admin Page Nav -->
+
+        <li class="nav-item">
+            {% if request.path == '/administrator/orphan_management' %}
+            <a class="nav-link" href="{% url 'orphan_management' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'orphan_management' %}">
+                    {% endif %}
+                    <i class="fa-solid fa-child"></i>
+                    <span>Orphan Management</span>
+                </a>
+        </li><!-- End Orphan Page Nav -->
+
+        <li class="nav-item">
+            {% if request.path == '/administrator/outing_management' %}
+            <a class="nav-link" href="{% url 'outing_management' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'outing_management' %}">
+                    {% endif %}
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Outing Management</span>
+                </a>
+        </li><!-- End Outing Page Nav -->
+
+        <li class="nav-item">
+            {% if request.path == '/administrator/adoption_management' %}
+            <a class="nav-link" href="{% url 'adoption_management' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'adoption_management' %}">
+                    {% endif %}
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                    <span>Adoption Management</span>
+                </a>
+        </li><!-- End Adoption Page Nav -->
+
+        <li class="nav-item">
+            {% if request.path == '/administrator/guardian_management' %}
+            <a class="nav-link" href="{% url 'guardian_management' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'guardian_management' %}">
+                    {% endif %}
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span>Guardian Management</span>
+                </a>
+        </li><!-- End Guardian Page Nav -->
+
+        <li class="nav-item">
+            {% if request.path == '/administrator/item_management' %}
+            <a class="nav-link" href="{% url 'item_management' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'item_management' %}">
+                    {% endif %}
+
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    <span>Item Management</span>
+                </a>
+        </li><!-- End Item Page Nav -->
+
+        <li class="nav-item">
+            {% if request.path == '/administrator/itemdonation_management' %}
+            <a class="nav-link" href="{% url 'itemdonation_management' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'itemdonation_management' %}">
+                    {% endif %}
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    <span>Item Donation Management</span>
+                </a>
+        </li><!-- End Item Donation Page Nav -->
+
+        <li class="nav-item">
+            {% if request.path == '/administrator/cashdonation_management' %}
+            <a class="nav-link" href="{% url 'cashdonation_management' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'cashdonation_management' %}">
+                    {% endif %}
+                    <i class="fa-sharp fa-solid fa-money-bill-transfer"></i>
+                    <span>Cash Donation Management</span>
+                </a>
+        </li><!-- End Cash Donation Page Nav -->
+
+        {% else %}
+
+        <li class="nav-item">
+            {% if request.path == '/donor/dashboard' %}
+            <a class="nav-link" href="{% url 'cashdonation_records' %}">
+                {% else %}
+                <a class="nav-link collapsed" href="{% url 'cashdonation_records' %}">
+                    {% endif %}
+
+                    <i class="fa-duotone fa-dollar-sign"></i>
+                    <span>Cash Donation Records</span>
+                </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'request_invoice' %}">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                <span>Request Invoice</span>
+            </a>
+        </li><!-- End Request Invoice Nav -->
+
+        <!-- <li class="nav-item">
+            <a class="nav-link collapsed" href="pages-contact.html">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </li> -->
+        <!-- End Contact Page Nav -->
+
+        <!-- <li class="nav-item">
+            <a class="nav-link collapsed" href="pages-register.html">
+                <i class="bi bi-card-list"></i>
+                <span>Register</span>
+            </a>
+        </li> -->
+        <!-- End Register Page Nav -->
+
+        <!-- <li class="nav-item">
+            <a class="nav-link collapsed" href="pages-login.html">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Login</span>
+            </a>
+        </li> -->
+        <!-- End Login Page Nav -->
+
+        <!-- <li class="nav-item">
+            <a class="nav-link collapsed" href="pages-error-404.html">
+                <i class="bi bi-dash-circle"></i>
+                <span>Error 404</span>
+            </a>
+        </li> -->
+        <!-- End Error 404 Page Nav -->
+
+        <!-- <li class="nav-item">
+            <a class="nav-link collapsed" href="pages-blank.html">
+                <i class="bi bi-file-earmark"></i>
+                <span>Blank</span>
+            </a>
+        </li> -->
+        <!-- End Blank Page Nav -->
+        {% endif %}
+
+    </ul>
+
+</aside><!-- End Sidebar-->

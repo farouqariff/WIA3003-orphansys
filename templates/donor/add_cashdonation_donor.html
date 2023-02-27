@@ -1,0 +1,100 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Request Invoice | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <h1>Request Invoice</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Request Invoice</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+{% if cd_form.errors %}
+<div class="alert alert-danger" role="alert">
+    <ul>
+        {% for field in cd_form %}
+        {% for error in field.errors %}
+        <li>{{ error|escape }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 col-sm-2">
+        </div>
+        <div class="col-6 col-sm-7">
+            <div class="card p-4">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    
+                        {% if request.user.role == 1 %}
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Donor</label>
+                            {{ cd_form.donor|add_class:'form-control' | append_attr:"placeholder:Select donor"}}
+                        </div>
+                    
+                        {% elif request.user.role == 2 %}
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Donor</label>
+                            <input type="text" class="form-control" readonly value="{{request.user.username}}">
+                        </div>
+                        {% endif %}
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Amount</label>
+                            {{ cd_form.amt|add_class:'form-control' | append_attr:"placeholder:Enter amount"}}
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Receipt</label>
+                            {{ cd_form.receipt|add_class:'form-control' | append_attr:"placeholder:Upload receipt"}}
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Date</label>
+                            {{ cd_form.date|add_class:'form-control' | append_attr:"placeholder:Select date"}}
+                        </div>
+                        <span class="float-right">
+                            <button type="submit" class="btn btn-primary" style="background-color: #4154f1;">Submit</button>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<a href="{% url 'request_invoice' %}" class="btn btn-primary" style="width: auto; height: auto; margin-top: 20px; margin-left: 15px;">
+    Back
+</a>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+
+</script>
+{% endblock %}

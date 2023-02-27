@@ -1,0 +1,122 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+
+{% block title %}
+<title>Update Adoption | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <h1>Update Adoption</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'adoption_management' %}">Adoption Management</a></li>
+            <li class="breadcrumb-item active">Update Adoption</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% if ad_form.errors %}
+<div class="alert alert-danger" role="alert">
+    <ul>
+        {% for field in ad_form %}
+        {% for error in field.errors %}
+        <li>{{ error|escape }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="container">
+  <div class="row">
+      <div class="col-6 col-sm-2">
+      </div>
+      <div class="col-6 col-sm-7">
+        <div class="card p-4">
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              <div class="row">
+                  <div class="form-outline mb-4 col-md-12">
+                      <label class="form-label" for="form3Example3">Orphan name</label>
+                      {{ ad_form.orphan_fk|add_class:'form-control' | append_attr:"placeholder:Select orphan name"}}
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-outline mb-4 col-md-4">
+                      <label class="form-label" for="form3Example3">IDN</label>
+                      {{ ad_form.idn|add_class:'form-control' | append_attr:"placeholder:Enter idn"}}
+                  </div>
+                  <div class="form-outline mb-4 col-md-4">
+                      <label class="form-label" for="form3Example3">First name</label>
+                      {{ ad_form.first_name|add_class:'form-control' | append_attr:"placeholder:Enter first name"}}
+                  </div>
+                  <div class="form-outline mb-4 col-md-4">
+                      <label class="form-label" for="form3Example3">Last name</label>
+                      {{ ad_form.last_name|add_class:'form-control' | append_attr:"placeholder:Enter last name"}}
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-4 mb-4">
+                    <div class="form-outline">
+                      <label class="form-label" for="form3Example3">Gender</label>
+                      {{ ad_form.gender|add_class:'form-control' | append_attr:"placeholder:Enter gender"}}
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <div class="form-outline">
+                      <label class="form-label" for="form3Example3">DOB</label>
+                      {{ ad_form.dob|add_class:'form-control' | append_attr:"placeholder:Enter dob"}}
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                      <div class="form-outline">
+                          <label class="form-label" for="form3Example3">Job</label>
+                          {{ ad_form.job|add_class:'form-control' | append_attr:"placeholder:Enter job"}}
+                      </div>
+                    </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <label class="form-label" for="form3Example3">Email</label>
+                      {{ ad_form.email|add_class:'form-control' | append_attr:"placeholder:Enter email"}}
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <label class="form-label" for="form3Example3">Phone</label>
+                      {{ ad_form.phone|add_class:'form-control' | append_attr:"placeholder:Enter phone"}}
+                    </div>
+                  </div>
+                </div>
+              <div class="form-outline mb-4">
+                  <label class="form-label" for="form3Example3">Address</label>
+                  {{ ad_form.add|add_class:'form-control' | append_attr:"placeholder:Enter address"}}
+              </div>
+              <span class="float-right">
+                  <button type="submit" class="btn btn-primary" style="background-color: #4154f1;">Submit</button>
+              </span>
+          </form>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div>
+    <a href="{% url 'adoption_management' %}" class="btn btn-primary" style="background-color: #4154f1; width: 40px; height: 40px; margin-top: 40px;">
+      <i class="fa-sharp fa-solid fa-arrow-left"></i>
+    </a>
+</div>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+</script>
+{% endblock %}

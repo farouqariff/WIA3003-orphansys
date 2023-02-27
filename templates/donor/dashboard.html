@@ -1,0 +1,40 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Dashboard | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <h1>Dashboard</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+
+</script>
+{% endblock %}

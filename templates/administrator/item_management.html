@@ -1,0 +1,83 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Item Management | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <div class="row">
+        <div class="col">
+            <h1>Item Management</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Item Management</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-sm m-auto d-flex justify-content-end">
+            <a href="{% url 'add_item' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add Item</a>
+        </div>
+    </div>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="card p-4">
+    <div class="card-body">
+        <table id="orphan_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Required</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in i_list %}
+                <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.rqd }}</td>
+                    <td>{{ i.date }}</td>
+                    <td>
+                        <a href="{% url 'update_item' i.id %}">
+                            <i class="fa-regular fa-pen-to-square" style="color: black;"></i>
+                        </a>
+                        <a href="{% url 'delete_item' i.id %}">
+                            <i class="fa-regular fa-trash-can" style="color: red;"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<a href="{% url 'sms_item' %}" class="btn btn-primary" style="width: auto; height: auto;">
+    SMS Item
+</a>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+
+</script>
+{% endblock %}

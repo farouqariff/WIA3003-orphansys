@@ -1,0 +1,108 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+
+{% block title %}
+<title>Add Guardian | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <h1>Add Guardian</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="guardian_management">Guardian Management</a></li>
+            <li class="breadcrumb-item active">Add Guardian</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% if g_form.errors %}
+<div class="alert alert-danger" role="alert">
+    <ul>
+        {% for field in g_form %}
+        {% for error in field.errors %}
+        <li>{{ error|escape }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 col-sm-2">
+        </div>
+        <div class="col-6 col-sm-7">
+            <div class="card p-4">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-outline mb-4 col-md-5">
+                                <label class="form-label" for="form3Example3">IDN</label>
+                                {{ g_form.idn|add_class:'form-control' | append_attr:"placeholder:Enter IDN"}}
+                            </div>
+                            <div class="form-outline mb-4 col-md-7">
+                                <label class="form-label" for="form3Example3">First name</label>
+                                {{ g_form.first_name|add_class:'form-control' | append_attr:"placeholder:Enter first name"}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                              <div class="form-outline">
+                                <label class="form-label" for="form3Example3">Last name</label>
+                                {{ g_form.last_name|add_class:'form-control' | append_attr:"placeholder:Enter last name"}}
+                              </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                              <div class="form-outline">
+                                <label class="form-label" for="form3Example3">Date of Birth</label>
+                                {{ g_form.dob|add_class:'form-control' | append_attr:"placeholder:Enter birth date"}}
+                              </div>
+                            </div>
+                          </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Gender</label>
+                            {{ g_form.gender|add_class:'form-control' | append_attr:"placeholder:Enter gender"}}
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Occupation</label>
+                            {{ g_form.job|add_class:'form-control' | append_attr:"placeholder:Enter job"}}
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Email</label>
+                            {{ g_form.email|add_class:'form-control' | append_attr:"placeholder:Enter email"}}
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Phone Number</label>
+                            {{ g_form.phone|add_class:'form-control' | append_attr:"placeholder:Enter phone"}}
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Address</label>
+                            {{ g_form.add|add_class:'form-control' | append_attr:"placeholder:Enter address"}}
+                        </div>
+                        <span class="float-right">
+                            <button type="submit" class="btn btn-primary" style="background-color: #4154f1;">Submit</button>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a href="{% url 'guardian_management' %}" class="btn btn-primary" style="background-color: #4154f1; width: 40px; height: 40px; margin-top: 40px;">
+      <i class="fa-sharp fa-solid fa-arrow-left"></i>
+    </a>
+</div>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+</script>
+{% endblock %}

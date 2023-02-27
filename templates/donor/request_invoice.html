@@ -1,0 +1,87 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Request Invoice | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <h1>Request Invoice</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Request Invoice</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 col-sm-2">
+        </div>
+        <div class="col-6 col-sm-7">
+            <div class="card p-4">
+                <div class="card-body" style="margin-left: auto; margin-right: auto;">
+                    <p>
+                        <h4>
+                            Please <b>NOTE</b> that before requesting for donation invoice:
+                            <br>
+                            <br>
+                            1. The User must <b>already bank in</b> the donation to MayBank Account 123456789
+                            <br>
+                            <br>
+                            2. The amount of donation must be <b>more than RM100.</b>
+                            <br>
+                            <br>
+                            3. The User has the <b>bank in receipt</b> as proof the donation
+                            <br>
+                            <br>
+                            4. The User must <b>fill in the form</b> for the request with <b>correct information</b>
+                            <br>
+                            <br>
+                            5. Once the form is submitted, there will <b>no make changes</b> on the records 
+                            <br>
+                            <br>
+                            6. The User will have to wait at least <b>2 days</b> for the review
+                            <br>
+                            <br>
+                            <br>
+                            If the following steps do are not followed, the request for donation invoice wil be <b>denied</b>.
+                        </h4>
+                    </p>
+            
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<a href="{% url 'add_cashdonation_donor' %}" class="btn btn-primary" style="width: auto; height: auto;">
+    Next
+</a>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+
+{% block title %}
+<title>Update Item Donation | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <h1>Update Item Donation</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'itemdonation_management' %}">Item Donation Management</a></li>
+            <li class="breadcrumb-item active">Update Item Donation</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% if ido_form.errors %}
+<div class="alert alert-danger" role="alert">
+    <ul>
+        {% for field in ido_form %}
+        {% for error in field.errors %}
+        <li>{{ error|escape }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 col-sm-2">
+        </div>
+        <div class="col-6 col-sm-7">
+            <div class="card p-4">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Item</label>
+                            {{ ido_form.item|add_class:'form-control' | append_attr:"placeholder:Select item"}}
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Donor</label>
+                            {{ ido_form.donor|add_class:'form-control' | append_attr:"placeholder:Select donor"}}
+                        </div>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Quantity</label>
+                            {{ ido_form.qty|add_class:'form-control' | append_attr:"placeholder:Enter quantity"}}
+                        </div>
+                        <div class="form-outline mb-4">
+                          <label class="form-label" for="form3Example3">Date</label>
+                          {{ ido_form.date|add_class:'form-control' | append_attr:"placeholder:Select date"}}
+                      </div>
+                        <span class="float-right">
+                            <button type="submit" class="btn btn-primary" style="background-color: #4154f1;">Submit</button>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div>
+    <a href="{% url 'itemdonation_management' %}" class="btn btn-primary" style="background-color: #4154f1; width: 40px; height: 40px; margin-top: 40px;">
+      <i class="fa-sharp fa-solid fa-arrow-left"></i>
+    </a>
+</div>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+</script>
+{% endblock %}

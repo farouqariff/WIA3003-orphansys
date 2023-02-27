@@ -1,0 +1,89 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Guardian Management | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <div class="row">
+        <div class="col">
+            <h1>Guardian Management</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Guardian Management</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-sm m-auto d-flex justify-content-end">
+            <a href="{% url 'add_guardian' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add Guardian</a>
+        </div>
+    </div>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="card p-4">
+    <div class="card-body">
+        <table id="guardian_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>IDN</th>
+                    <th>Full Name</th>
+                    <th>DoB</th>
+                    <th>Gender</th>
+                    <th>Job</th>
+                    <th>Email</th>
+                    <th>Phone no.</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for g in g_list %}
+                <tr>
+                    <td>{{ g.id }}</td>
+                    <td>{{ g.idn }}</td>
+                    <td>{{ g.first_name }} {{ g.last_name }}</td>
+                    <td>{{ g.dob }}</td>
+                    <td>{{ g.gender }}</td>
+                    <td>{{ g.job }}</td>
+                    <td>{{ g.email }}</td>
+                    <td>{{ g.phone }}</td>
+                    <td>{{ g.add }}</td>
+                    <td>
+                        <a href="{% url 'update_guardian' g.id %}">
+                            <i class="fa-regular fa-pen-to-square" style="color: black;"></i>
+                        </a>
+                        <a href="{% url 'delete_guardian' g.id %}">
+                            <i class="fa-regular fa-trash-can" style="color: red;"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+    
+</script>
+{% endblock %}

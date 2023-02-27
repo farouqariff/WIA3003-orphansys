@@ -1,0 +1,101 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Cash Donation Records | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <div class="row">
+        <div class="col">
+            <h1>Cash Donation Records</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Cash Donation Records</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- <div class="col-sm m-auto d-flex justify-content-end">
+            <a href="{% url 'add_cashdonation' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add Cash Donation</a>
+        </div> -->
+    </div>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="card p-4"">
+    <div class="card-body">
+        <table id="orphan_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Donor</th>
+                    <th>Amount</th>
+                    <th>Receipt</th>
+                    <th>Status</th>
+                    <th>Invoice</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cd in cd_list %}
+                <tr>
+                    <td>{{ cd.id }}</td>
+                    <td>{{ cd.donor }}</td>
+                    <td>RM {{ cd.amt }}</td>
+                    <td>
+                        {% if cd.receipt %}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#donationreceipt-{{ cd.id }}" style="background-color: transparent; border-color: transparent;">
+                            <i class="fa-sharp fa-solid fa-receipt" style="color: green;"></i>
+                          </button>
+                          <!-- Modal -->
+                          <div class="modal fade" id="donationreceipt-{{ cd.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="donationreceipt-{{ cd.id }}">{{ cd.donor }}</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ cd.receipt.url }}" alt="" width="100%">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                    </td>
+                    <td>{{ cd.get_status_display }}</td>
+                    <td>
+                      {% if cd.invoice %}
+                      <a href="{{ cd.invoice.url }}" download>{{ cd.invoice }}</a>
+                        {% endif %}
+                    </td>
+                    <td>{{ cd.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block style %}
+
+<!-- Vendor CSS Files -->
+<!-- <link href="{% static 'vendor/simple-datatables/style.css' %}" rel="stylesheet"> -->
+<link href="{% static 'vendor/quill/quill.snow.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="{% static 'css/admin.css' %}" rel="stylesheet">
+<style>
+.dataTables_wrapper .dataTables_length select {
+    padding-right: 25px!important;
+}
+</style>
+{% endblock %}
+
+{% block child_style %}
+{% endblock %}
+
+{% block body %}
+{% include "base/navbar_admin.html" %}
+{% include "base/aside.html" %}
+
+<main id="main" class="main">
+    {% block breadcrumbs %}
+    {% endblock %}
+
+    <section class="section dashboard">
+        <div class="row">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+{% include "base/footer_admin.html" %}
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+{% endblock %}
+
+{% block script %}
+<!-- Vendor JS Files -->
+<!-- <script src="{% static 'vendor/simple-datatables/simple-datatables.js' %}"></script> -->
+<script src="{% static 'vendor/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'vendor/quill/quill.min.js' %}"></script>
+<script src="{% static 'vendor/echarts/echarts.min.js' %}"></script>
+<script src="{% static 'vendor/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{% static 'vendor/chart.js/chart.min.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'js/admin.js' %}"></script>
+{% endblock %}
+
+{% block child_scripts %}
+{% endblock %}

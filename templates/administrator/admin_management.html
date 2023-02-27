@@ -1,0 +1,85 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Admin Management | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <div class="row">
+        <div class="col">
+            <h1>Admin Management</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Admin Management</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-sm m-auto d-flex justify-content-end">
+            <a href="{% url 'add_admin' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add Admin</a>
+        </div>
+    </div>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="card p-4">
+    <div class="card-body">
+        <table id="admin_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in a_list %}
+                {% if a.role == 1 %}
+                <tr>
+                    <td>{{ a.id }}</td>
+                    <td>{{ a.username }}</td>
+                    <td>{{ a.first_name }} {{ a.last_name }}</td>
+                    <td>{{ a.get_role_display }}</td>
+                    <td>{{ a.email }}</td>
+                    <td>{{ a.phone_number }}</td>
+                    <td>
+                        <a href="{% url 'update_admin' a.id %}">
+                            <i class="fa-regular fa-pen-to-square" style="color: black;"></i>
+                        </a>
+                        <a href="{% url 'delete_admin' a.id %}">
+                            <i class="fa-regular fa-trash-can" style="color: red;"></i>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+
+</script>
+{% endblock %}

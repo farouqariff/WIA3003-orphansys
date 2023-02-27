@@ -1,0 +1,91 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Outing Management | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <div class="row">
+        <div class="col">
+            <h1>Outing Management</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Outing Management</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-sm m-auto d-flex justify-content-end">
+            <a href="{% url 'add_outing' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add Outing</a>
+        </div>
+    </div>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="card p-4">
+    <div class="card-body">
+        <table id="outing_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Orphan Name</th>
+                    <th>Date Out</th>
+                    <th>Time Out</th>
+                    <th>Reason</th>
+                    <th>Accompany Name</th>
+                    <th>Accompany IDN</th>
+                    <th>Accompany Phone</th>
+                    <th>Date In</th>
+                    <th>Time In</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for out in out_list %}
+                <tr>
+                    <td>{{ out.orphan_fk }}</td>
+                    <td>{{ out.date_out }}</td>
+                    <td>{{ out.time_out }}</td>
+                    <td>{{ out.reason }}</td>
+                    <td>{{ out.accompany_first_name }} {{ out.accompany_last_name }}</td>
+                    <td>{{ out.accompany_idn }}</td>
+                    <td>{{ out.accompany_phone }}</td>
+                    <td>{{ out.date_in }}</td>
+                    <td>{{ out.time_in }}</td>
+                    <td>{{ out.get_status_display }}</td>
+                    <td>
+                        <a href="{% url 'update_outing' out.id %}">
+                            <i class="fa-regular fa-pen-to-square" style="color: black;"></i>
+                        </a>
+                        <a href="{% url 'delete_outing' out.id %}">
+                            <i class="fa-regular fa-trash-can" style="color: red;"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+    
+</script>
+{% endblock %}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cash Donation Invoice</title>
+</head>
+<body>
+  <p>
+    {{donation_info.date}}
+  </p>
+  <p>
+    <img src="C:/orphansystem/templates/images/barcode.jpg" alt="" width="60" height="auto">
+  </p>
+  <p>
+    {{donation_info.donor.acc_fk.first_name}} {{donation_info.donor.acc_fk.last_name}}
+  </p>
+  <p>
+    {{donation_info.donor.address | linebreaks}}
+  </p>
+  <p>
+    <h2>
+      Refugee Children Orphanage Contribution Statement / Penyata Sumbangan Rumah Anak Yatim Pelarian
+    </h2>
+  </p>
+  <p>
+    Thank you for choosing Refugee Children Orphanage as your preferred cash donation. This Refugee Children Orphanage Contribution Statement provides
+you with information on the total contribution that you have paid from 1 January 2023 to 31 December 2023. 
+<br><em>Terima kasih kerana memilih Rumah Anak Yatim Pelarian sebagai sumbangan wang tunai pilihan anda. Penyata Sumbangan Rumah Anak Yatim Pelarian ini menyediakan maklumat berkenaan jumlah sumbangan yang dibayar dari 1 Januari 2023 sehingga 31 Disember 2023.
+    </em>
+  </p>
+  <br>
+  <p>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{donation_info.date}}</td>
+          <td>RM {{donation_info.amt}}</td>
+          <td>Bank Transfer</td>
+        </tr>
+      </tbody>
+    </table>
+  </p>
+  <p>
+    <br>
+    <h3>EXPLANATORY NOTES / NOTA PENERANGAN</h3>
+    ORPHANAGE CASH DONATION / SUMBANGAN TUNAI RUMAH ANAK YATIM
+    <br>
+    Orphanage Cash Donation. 100% of contribution paid are eligible for tax relief as Charity Donation in Money.
+    <br>
+    <em>Sumbangan Tunai untuk Rumah Anak Yatim. 100% daripada sumbangan yang dibayar adalah layak untuk pelepasan cukai sebagai amal jariah sumbangan dalam bentuk wang.</em>
+  </p>
+  <p>
+    You may refer to http://www.hasil.gov.my/ for detailed explanation of the above explanatory notes.
+    <br>
+    <em>Anda boleh merujuk kepada http://www.hasil.gov.my/ untuk penjelasan terperinci mengenai nota penerangan di atas.</em>
+  </p>
+  <p>
+    We issued this statement for the purpose of submission to the Income Tax Authorities.  Eligibility for the claim of income tax relief is subjected to the approval of
+the Income Tax Authorities.
+<br>
+<em>Kami mengeluarkan penyata ini bagi tujuan pengisytiharan kepada Pihak Berkuasa Cukai Pendapatan. Kelayakan untuk tuntutan pelepasan cukai pendapatan
+  adalah tertakluk kepada kelulusan Pihak Berkuasa Cukai Pendapatan.</em>
+  </p>
+  <p>
+    This is a computer-generated statement. No signature is required.
+    <br>
+    <em>
+      Ini adalah penyata cetakan komputer. Tiada tandatangan diperlukan.
+    </em>
+  </p>
+</body>
+</html>

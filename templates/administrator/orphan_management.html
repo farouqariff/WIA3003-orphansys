@@ -1,0 +1,109 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Orphan Management | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <div class="row">
+        <div class="col">
+            <h1>Orphan Management</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Orphan Management</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-sm m-auto d-flex justify-content-end">
+            <a href="{% url 'add_orphan' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add Orphan</a>
+        </div>
+    </div>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="card p-4">
+    <div class="card-body">
+        <table id="orphan_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>IDN</th>
+                    <th>Full Name</th>
+                    <th>Gender</th>
+                    <th>Dental Image</th>
+                    <th>Estimated Age</th>
+                    <th>Guardian Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for o in o_list %}
+                <tr>
+                    <td>{{ o.id }}</td>
+                    <td>{{ o.idn }}</td>
+                    <td>{{ o.first_name }} {{ o.last_name }}</td>
+                    <td>{{ o.get_gender_display }}</td>
+                    <td>
+                        {% if o.dental_img %}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orphanxray-{{ o.id }}" style="background-color: transparent; border-color: transparent;">
+                            <i class="fa-sharp fa-solid fa-teeth-open" style="color: rgb(56, 56, 164);"></i>
+                          </button>
+                          <!-- Modal -->
+                          <div class="modal fade" id="orphanxray-{{ o.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="orphanxray-{{ o.id }}">{{ o.first_name }} {{ o.last_name }}</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ o.dental_img.url }}" alt="" width="100%">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                    </td>
+                    <td>{{ o.est_age }}</td>
+                    <td>{{ o.guardian_fk.first_name }} {{ o.guardian_fk.last_name }}</td>
+                    <td>{{ o.get_status_display }}</td>
+                    <td>
+                        <a href="{% url 'update_orphan2' o.id %}">
+                            <i class="fa-regular fa-pen-to-square" style="color: black;"></i>
+                        </a>
+                        <a href="{% url 'delete_orphan' o.id %}">
+                            <i class="fa-regular fa-trash-can" style="color: red;"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+
+</script>
+{% endblock %}

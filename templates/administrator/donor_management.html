@@ -1,0 +1,96 @@
+{% extends "base/admin_base.html" %}
+{% load static crispy_forms_tags widget_tweaks %}
+
+{% block title %}
+<title>Donor Management | OrphanSys</title>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="pagetitle">
+    <div class="row">
+        <div class="col">
+            <h1>Donor Management</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Donor Management</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-sm m-auto d-flex justify-content-end">
+            <a href="{% url 'add_donor' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add Donor</a>
+        </div>
+    </div>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="card p-4">
+    <div class="card-body">
+        <table id="donor_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Donor ID</th>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Full Name</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
+                    <th>Occupation</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in d_list %}
+                {% if d.acc_fk.role == 2 %}
+                <tr>
+                    <td>{{ d.acc_fk.id }}</td>
+                    <td>{{ d.id }}</td>
+                    <td>{{ d.acc_fk.username }}</td>
+                    <td>{{ d.acc_fk.get_role_display }}</td>
+                    <td>{{ d.acc_fk.email }}</td>
+                    <td>{{ d.acc_fk.phone_number }}</td>
+                    <td>{{ d.acc_fk.first_name }} {{ d.acc_fk.last_name }}</td>
+                    <td>{{ d.get_gender_display }}</td>
+                    <td>{{ d.date_of_birth }}</td>
+                    <td>{{ d.occupation }}</td>
+                    <td>{{ d.address }}</td>
+                    <td>
+                        <a href="{% url 'update_donor' d.id %}">
+                            <i class="fa-regular fa-pen-to-square" style="color: black;"></i>
+                        </a>
+                        <a href="{% url 'delete_donor' d.id %}">
+                            <i class="fa-regular fa-trash-can" style="color: red;"></i>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block child_script %}
+<script>
+    
+</script>
+{% endblock %}
